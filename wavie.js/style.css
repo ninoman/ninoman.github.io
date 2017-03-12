@@ -1,0 +1,129 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.canvas-wrapper{
+	position: absolute;
+	z-index: -1;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.dg.ac{
+	top: 35px !important;
+}
+
+.dg.a.has-save > ul{
+	margin-top: 0px !important;
+}
+
+
+.select-modes{
+	position: fixed;
+	z-index: 9999;
+	top: 5px;
+	right: 15px;
+	border-radius: 5px 5px 0px 0px;
+	background: rgba(0,0,0,0.6);
+	color: white;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	font-family:  Arial, Helvetica, sans-serif;
+	font-size: 13px; 
+	width: 265px;
+}
+
+select.form-control {
+	width: initial !important;
+	display: initial !important;
+	padding: 3px 6px !important;
+	height: initial !important;
+}
+
+.dropdown{
+	float: right;
+}
+.dropdown .btn {
+	padding: 2px 4px;
+	font-size: 13px;
+}
+.dropdown .dropdown-menu{
+	right: 0;
+	left: initial;
+}
+input {
+	line-height: normal !important;
+}
+.dg.main{
+	width: 265px !important;
+}
+.close-button{
+	width: 265px !important;
+}
+
+.center-panel{
+	font-family: Open Sans;
+	position: absolute;
+	padding: 10px 20px 20px 20px;
+	text-align: center;
+	color: #3a2e96;
+	background: #eae9f1;
+	border-radius: 5px;
+	left: 0;
+	right: 0;
+	top: 50%;
+	margin: auto;
+	margin-top: -82px;
+	width: 240px;
+	height: 165px;
+}
+.center-panel h1{
+	font-size: 22px;
+	font-weight: 800;
+	margin: 0px;
+	margin-top: -8px;
+}
+.center-panel p{
+	font-size: 12px;
+	margin: 8px 0px;
+	padding: 0px 10px;
+}
+.button-links{
+	width: 95px;
+	color: #1e174a;
+	background-color: #f4f2fd;
+	border-color: #ccc;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	/* box-shadow: 0px 3px; */
+	-webkit-user-select: nne;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	/* border: 1px solid #1e174a; */
+	border-radius: 3px;
+	transition: all 0.3s ease;
+	background-color: #3F51B5;
+	color: #fff;
+	/* box-shadow: 0px 0px 1px rgba(255, 0, 0, 0.63) inset; */
+}
+.button-links:hover{
+	color: #f4f2fd;
+	background-color: rgba(52, 56, 249, 0.7);
+	border-color: #adadad;
+	text-decoration: none;
+}

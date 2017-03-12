@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Wavie.JS</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="canvas-wrapper">
+        <canvas id="myCanvas" style="width: 100vw; height: 100vh;"></canvas>
+    </div>
+
+    <div class="select-modes">
+        <span>
+			It's not all about waves
+		</span>
+        <select class="form-control" id="mode">
+		  	<option value="wavie">Wavie</option>
+		  	<option value="patience">Patience</option>
+            <option value="dotes">Dotes</option>
+		    <option value="dotes2">Dotes 2</option>
+		    <option value="snake">Snake</option>
+		    <option value="dna">Dna</option>
+		    <option value="radiation">Radiation</option>
+		    <option value="fog">Fog</option>
+		    <option value="blizzard">Blizzard</option>
+		    <option value="etherium">Etherium</option>
+		    <option value="artistic">Artistic</option>
+		    <option value="aurora">Aurora</option>
+            <option value="minimal">Minimal</option>
+		</select>
+    </div>
+
+    <div class="center-panel">
+        <p>
+            We call it
+        </p>
+        <h1>
+            Wavie.js
+        </h1>
+        <p>
+            It's a JavaScript library, for creating beautifull canvas tags.
+        </p>
+        <a href="https://github.com/ninoman" target="_blank" class="button-links">Github</a>
+        <a href="wavieJS.zip" class="button-links">Download</a>
+    </div>
+
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.js"></script>
+<script type="text/javascript" src='wavie.js'></script>
+
+<script type="text/javascript">
+    mode.addEventListener("change", function() {
+        console.log('modes/' + mode.value + '.json');
+        getJSON('modes/' + mode.value + '.json', function(err, newConfig) {
+            if (err) {
+                console.log(err);
+            }
+            config.ballSize = newConfig.ballSize;
+            config.speed = newConfig.speed;
+            config.phaseRefX = newConfig.phaseRefX;
+            config.phaseRefY = newConfig.phaseRefY;
+            config.radiusX = newConfig.radiusX;
+            config.radiusY = newConfig.radiusY;
+            config.densityX = newConfig.densityX;
+            config.densityY = newConfig.densityY;
+            config.backgroundFrom = newConfig.backgroundFrom;
+            config.backgroundTo = newConfig.backgroundTo;
+            config.degree = newConfig.degree;
+            config.ballColor = newConfig.ballColor;
+            console.log(gui.__controllers)
+            for (var i in gui.__controllers) {
+              gui.__controllers[i].updateDisplay();
+            }
+            for (var i = 0; i < Object.keys(gui.__folders).length; i++) {
+                var key = Object.keys(gui.__folders)[i];
+                for (var j = 0; j < gui.__folders[key].__controllers.length; j++ )
+                {
+                    gui.__folders[key].__controllers[j].updateDisplay();
+                }
+            }
+        });
+    });
+
+
+    config = {};
+
+    getJSON('modes/wavie.json', function(err, jsonConfig) {
+        if (err) {
+            console.log(err);
+        }
+        config = jsonConfig;
+        config.Download = function() {
+            downloadConfig();
+        };
+
+        gui = new dat.gui.GUI();
+
+        gui.add(config, 'ballSize').min(0).max(10).step(0.1);
+        gui.add(config, 'speed').min(-10).max(10).step(0.1);
+        gui.addColor(config, 'ballColor');
+
+        var f1 = gui.addFolder('Background');
+        f1.addColor(config, 'backgroundFrom');
+        f1.addColor(config, 'backgroundTo');
+        f1.add(config, 'degree').min(-180).max(180).step(1);
+
+
+        var f2 = gui.addFolder('Phase gradient');
+        f2.add(config, 'phaseRefX').min(-1).max(1).step(0.001);
+        f2.add(config, 'phaseRefY').min(-1).max(1).step(0.001);
+
+        var f2 = gui.addFolder('Radius');
+        f2.add(config, 'radiusX').min(0).max(200).step(1);
+        f2.add(config, 'radiusY').min(0).max(200).step(1);
+
+        var f2 = gui.addFolder('Density');
+        f2.add(config, 'densityX').min(0).max(50).step(0.5);
+        f2.add(config, 'densityY').min(0).max(50).step(0.5);
+
+        gui.add(config, 'Download');
+
+        wavie(myCanvas, config)
+    });
+
+    function downloadConfig() {
+        var downloadConfig = config;
+        delete downloadConfig.download;
+
+        var dataStr = "data:text/json;charset=utf-8,";
+        dataStr += encodeURIComponent(JSON.stringify(downloadConfig));
+        var a = document.createElement('a');
+        a.setAttribute("href", dataStr);
+        a.setAttribute("download", "wavie.json");
+        a.setAttribute("target", "_blank");
+        a.setAttribute("style", "display:none");
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+</script>
+</html>
